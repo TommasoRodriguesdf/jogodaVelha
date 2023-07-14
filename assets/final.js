@@ -1,27 +1,13 @@
-let socador1 = 'X';
-let socador2 = 'O';
-let velha =['','','','','','','','','',];
-
-function setupGameBoard() {
-    const squares = document.getElementsByClassName('square');
-    for (let i = 0; i < squares.length; i++) {
-        squares[i].addEventListener('click', function() {
-            alert('cliclou');
-        if( i % 2 === 0 ){
-            velha[i] = socador1;
-          
-        }else{
-            velha[i] = socador2; 
-
-        }
-         combinacoisVidoria();
-      });
-    }
+let jogador = 'X';
+let velha =['','','','','','','','','' ];
+function comesardinovo(){
+const squares = document.getElementsByClassName('square');
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].textContent = '';
   }
-setupGameBoard();
+  velha = ['','','','','','','','','' ];
 
-
-
+}
 function combinacoisVidoria() {
   const squares = document.getElementsByClassName('square');
   for (let i = 0; i < squares.length; i++) {
@@ -32,12 +18,33 @@ function combinacoisVidoria() {
   for(let combinacou of combinacois) {
     const [a,b,c] = combinacou;
 
-    if(velha[a] === velha[b] && velha[b] === velha[c]){
-        alert("vense");
+    if(velha[a] === velha[b] && velha[b] === velha[c] && velha[a]){
+        alert("vence");
+        comesardinovo();        
     }
+  }
+}
+function trocajogador(){
+jogador= jogador === 'X' ? 'O' : 'X';   
 }
 
+function velevicadorVelha(){
+    if( !velha.includes('')){
+        alert('Deu velha');
+        comesardinovo();      
+    }
+  }
+
+
+function setupGameBoard() {
+  const squares = document.getElementsByClassName('square');
+  for (let i = 0; i < squares.length; i++) {
+      squares[i].addEventListener('click', function() {
+       velha[i] = jogador;
+           trocajogador();
+           velevicadorVelha();
+       combinacoisVidoria();
+    });
+  }
 }
-
-
-
+setupGameBoard();
